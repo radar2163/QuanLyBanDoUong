@@ -1,6 +1,9 @@
 # Sao chép file này thành local.properties và điền giá trị.
 # File local.properties đã có trong .gitignore — không commit lên Git.
 
+# Firebase: trong Firebase Console → Project settings → Your apps → tải google-services.json
+# Đặt file vào app/google-services.json (sao chép từ app/google-services.json.example rồi thay bằng nội dung tải về).
+
 ## Android SDK (thường đã có sẵn sau khi mở project trong Android Studio)
 # sdk.dir=/path/to/Android/Sdk
 

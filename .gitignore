@@ -15,3 +15,6 @@
 local.properties
 hs_err_pid*.log
 replay_pid*.log
+
+# Firebase — tải từ Firebase Console, không commit file thật
+/app/google-services.json

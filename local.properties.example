@@ -1,0 +1,16 @@
+# Sao chép file này thành local.properties và điền giá trị.
+# File local.properties đã có trong .gitignore — không commit lên Git.
+
+## Android SDK (thường đã có sẵn sau khi mở project trong Android Studio)
+# sdk.dir=/path/to/Android/Sdk
+
+## Gmail SMTP (App Password): https://support.google.com/accounts/answer/185833
+smtp.host=smtp.gmail.com
+smtp.port=587
+smtp.username=your.email@gmail.com
+smtp.password=your-app-password
+smtp.from.email=your.email@gmail.com
+
+## VNPay (sandbox hoặc production — lấy từ cổng merchant)
+vnpay.tmn.code=YOUR_TMN_CODE
+vnpay.secret.key=YOUR_SECRET_KEY

@@ -1,10 +1,30 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
 }
 
+val localProperties = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) {
+        load(FileInputStream(f))
+    }
+}
+
+fun escapeBuildConfigString(value: String): String =
+    value.replace("\\", "\\\\").replace("\"", "\\\"")
+
+fun localProp(key: String, default: String = ""): String =
+    escapeBuildConfigString(localProperties.getProperty(key, default))
+
 android {
     namespace = "com.example.cuoiki"
     compileSdk = 34
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.example.cuoiki"
@@ -14,6 +34,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "SMTP_HOST", "\"${localProp("smtp.host", "smtp.gmail.com")}\"")
+        buildConfigField("String", "SMTP_PORT", "\"${localProp("smtp.port", "587")}\"")
+        buildConfigField("String", "SMTP_USERNAME", "\"${localProp("smtp.username")}\"")
+        buildConfigField("String", "SMTP_PASSWORD", "\"${localProp("smtp.password")}\"")
+        buildConfigField("String", "SMTP_FROM_EMAIL", "\"${localProp("smtp.from.email")}\"")
+        buildConfigField("String", "VNPAY_TMN_CODE", "\"${localProp("vnpay.tmn.code")}\"")
+        buildConfigField("String", "VNPAY_SECRET_KEY", "\"${localProp("vnpay.secret.key")}\"")
     }
 
     buildTypes {

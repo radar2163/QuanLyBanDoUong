@@ -2,6 +2,8 @@ package com.example.cuoiki.TienIch;
 
 import android.util.Log;
 
+import com.example.cuoiki.BuildConfig;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -23,16 +25,13 @@ public class VNPayHelper {
     
     private static final String TAG = "VNPayHelper";
     
-    //CẤU HÌNH VNPAY TEST
-
     private static final String VNPAY_URL = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    private static final String VNPAY_TMN_CODE = "<redacted>";
-    private static final String VNPAY_SECRET_KEY = "<redacted>";
-    
-    // Kiểm tra cấu hình
+    private static final String VNPAY_TMN_CODE = BuildConfig.VNPAY_TMN_CODE;
+    private static final String VNPAY_SECRET_KEY = BuildConfig.VNPAY_SECRET_KEY;
+
     static {
-        if (VNPAY_TMN_CODE.equals("YOUR_TMN_CODE") || VNPAY_SECRET_KEY.equals("YOUR_SECRET_KEY")) {
-            Log.w(TAG, "⚠ VNPay chưa được cấu hình! Vui lòng cập nhật TMN_CODE và SECRET_KEY");
+        if (VNPAY_TMN_CODE.isEmpty() || VNPAY_SECRET_KEY.isEmpty()) {
+            Log.w(TAG, "VNPay chưa được cấu hình: thêm vnpay.tmn.code và vnpay.secret.key vào local.properties");
         } else {
             Log.d(TAG, "VNPay configured - TMN_CODE: " + VNPAY_TMN_CODE + ", Secret Key length: " + VNPAY_SECRET_KEY.length());
         }
@@ -48,6 +47,10 @@ public class VNPayHelper {
      * @return Payment URL để mở trong WebView
      */
     public static String createPaymentUrl(String orderId, long amount, String orderInfo, String ipAddress) {
+        if (VNPAY_TMN_CODE.isEmpty() || VNPAY_SECRET_KEY.isEmpty()) {
+            Log.e(TAG, "Không tạo được URL thanh toán: thiếu vnpay.tmn.code hoặc vnpay.secret.key trong local.properties");
+            return null;
+        }
         // Tạo TxnRef duy nhất bằng cách thêm timestamp để tránh lỗi "Giao dịch đã tồn tại"
         SimpleDateFormat txnRefFormatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
         String uniqueTxnRef = orderId + "_" + txnRefFormatter.format(new Date());
@@ -169,6 +172,10 @@ public class VNPayHelper {
      * @return true nếu hash hợp lệ
      */
     public static boolean verifyResponse(Map<String, String> vnpParams) {
+        if (VNPAY_SECRET_KEY.isEmpty()) {
+            Log.e(TAG, "Không verify được: thiếu vnpay.secret.key trong local.properties");
+            return false;
+        }
         try {
             String vnp_SecureHash = vnpParams.remove("vnp_SecureHash");
             if (vnp_SecureHash == null || vnp_SecureHash.isEmpty()) {

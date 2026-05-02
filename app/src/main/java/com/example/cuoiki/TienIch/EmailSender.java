@@ -2,6 +2,8 @@ package com.example.cuoiki.TienIch;
 
 import android.util.Log;
 
+import com.example.cuoiki.BuildConfig;
+
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -20,11 +22,11 @@ public class EmailSender {
     private static final String TAG = "EmailSender";
     
 
-    private static final String SMTP_HOST = "smtp.gmail.com";
-    private static final String SMTP_PORT = "587";
-    private static final String SMTP_USERNAME = "<redacted>";
-    private static final String SMTP_PASSWORD = "<redacted>";
-    private static final String FROM_EMAIL = "<redacted>";
+    private static final String SMTP_HOST = BuildConfig.SMTP_HOST;
+    private static final String SMTP_PORT = BuildConfig.SMTP_PORT;
+    private static final String SMTP_USERNAME = BuildConfig.SMTP_USERNAME;
+    private static final String SMTP_PASSWORD = BuildConfig.SMTP_PASSWORD;
+    private static final String FROM_EMAIL = BuildConfig.SMTP_FROM_EMAIL;
     
 
     
@@ -36,6 +38,10 @@ public class EmailSender {
      * @return true nếu gửi thành công, false nếu thất bại
      */
     public static boolean sendEmail(String toEmail, String subject, String body) {
+        if (SMTP_USERNAME.isEmpty() || SMTP_PASSWORD.isEmpty()) {
+            Log.e(TAG, "SMTP chưa cấu hình: thêm smtp.username và smtp.password vào local.properties (xem local.properties.example)");
+            return false;
+        }
         try {
             // Cấu hình properties
             Properties properties = new Properties();

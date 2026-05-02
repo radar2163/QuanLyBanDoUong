@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "backups": {
+      "$username": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}
+

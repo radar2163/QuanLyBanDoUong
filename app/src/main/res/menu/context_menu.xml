@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_show_invoice"
+        android:title="Xem hóa đơn"
+        android:icon="@android:drawable/ic_menu_view"/>
+</menu>

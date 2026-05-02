@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ✅ Thêm quyền Internet ở đây -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 📷 Quyền camera để quét QR code -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CuoiKi"
+        tools:targetApi="31">
+
+        <activity android:name=".QuanLyTaiKhoan.AccountManageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuanLySanPham.ManageProductActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".XuatKho.ExportnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".XemGia.BuyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ThongKe.StaticActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DangNhap.CreateAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TimKiem.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HoSo.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CapNhatKho.UpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ThongBao.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuanLyThongBao.NotificationManageActivity"
+            android:exported="false" />
+        <activity android:name=".ThemSanPham.AddActivity" />
+        <activity
+            android:name=".ManHinhChinh.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DangNhap.LoginActivity"
+            android:exported="false" />
+
+        <!-- Khách hàng - Màn hình mặc định khi mở app -->
+        <activity
+            android:name=".KhachHang.CustomerMainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".KhachHang.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.FavoriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.CustomerSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.CustomerProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.OrderSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.OrderHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.MyAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.CustomerNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KhachHang.VNPayPaymentActivity"
+            android:exported="true">
+            <!-- Intent filter cho VNPay callback -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="vnpay" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".QuanLyDonHang.OrderManageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuanLyBanner.BannerManageActivity"
+            android:exported="false" />
+
+    </application>
+</manifest>
